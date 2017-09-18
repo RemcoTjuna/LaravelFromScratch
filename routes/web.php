@@ -13,6 +13,6 @@
 
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
-Route::post('/blogs', "BlogController@store");
+Route::post('/blogs', "PostController@store");
 Route::get('/blogs/create', "BlogController@create");
-Route::get('/blogs/post/{post}', "BlogController@show");
+Route::get('/blogs/posts/{post}', "PostController@show");
