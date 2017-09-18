@@ -5,6 +5,8 @@
 </head>
 </html>
 <body>
-    <h1>Welcome</h1>
+    <!-- This will paste all contents -->
+    @yield('content');
+
 </body>
 </html>
