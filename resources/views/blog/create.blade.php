@@ -1,7 +1,8 @@
 @extends('layout_post')
 
 @section('content')
-    <div class="col-sm-8 blog-main">
+    <div class="container">
+        <div class="col-sm-8 blog-main">
         <h1>Create a post</h1>
         <hr/>
         <form method="POST" action="/blogs">
@@ -17,8 +18,8 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
+     </div>
     </div>
-
     @include('partials.errors')
 
 @endsection

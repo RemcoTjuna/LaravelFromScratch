@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Post;
 
-class BlogController extends Controller
+class PostController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'descending_ordder')->get();
+        $posts = Post::orderBy('created_at', 'desc')->get();
 
         return view('blog.index', compact('posts'));
     }
@@ -28,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog.create');
+        //
     }
 
     /**
@@ -39,18 +37,31 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+        Post::create([
+            'title' => $request['title'],
+            'body' => $request['body'],
+            'user_id' => 0,
+            'blog_id' => 0
+        ]);
+
+        return redirect('/blogs');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        return view('blog.show');
+        return view('posts.show', compact('post'));
     }
 
     /**

@@ -1,5 +1,5 @@
-@extends('layout')
+@extends('layout_post')
 
 @section('content')
-    <h1>Show content here</h1>
+    @include('posts.post')
 @endsection
