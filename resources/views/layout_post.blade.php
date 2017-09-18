@@ -18,12 +18,12 @@
 
 <body>
 
-@include('partials.posts.nav')
+@include('partials.nav')
 
 <div class="container">
     @yield('content')
 </div>
-@include('partials.posts.footer')
+@include('partials.footer')
 
 
 </body>

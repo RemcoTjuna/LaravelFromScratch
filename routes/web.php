@@ -11,12 +11,6 @@
 |
 */
 
-//Controller based pipeline request.
-Route::get('/tasks', "TasksController@index");
-
-//Controller based pipeline request (with a wildcard {})
-Route::get('/tasks/{task}', "TasksController@show");
-
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
 Route::post('/blogs', "BlogController@store");
