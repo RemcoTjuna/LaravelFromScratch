@@ -23,4 +23,6 @@ Route::get('/posts/{id}', "PostsController@show");
 
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
+Route::post('/blogs', "BlogController@store");
+Route::get('/blogs/create', "BlogController@create");
 Route::get('/blogs/post/{post}', "BlogController@show");
