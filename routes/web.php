@@ -11,41 +11,8 @@
 |
 */
 
-use App\Task;
+//Controller base pipelined request.
+Route::get('/tasks', "TasksController@index");
 
-Route::get('/tasks', function () {
-
-    //Will fetch all data from the 'tasks' table.
-    //$tasks = DB::table('tasks')->latest()->get();
-    //$tasks = App\Task::all();
-    $tasks = Task::all();
-    return view('tasks.index', compact('tasks'));
-
-    /*
-    //The Three Dimensional Array will support variable pipelining to the blade file.
-    return view('welcome',[
-        'name' => 'Remco'
-    ]);
-    */
-
-    /*
-    //Works as well as the above example.
-    return view('welcome')->with('name', "Remco");
-    */
-
-    /*
-    //Works as well as the above example(s), but will give you a more compact codebase.
-    //Compact will give you a generated array with the given key words which will search for a valid value.
-    $name = "Remco";
-    return view('welcome', compact('name'));
-    */
-});
-
-//Wildcard {}
-Route::get('/tasks/{task}', function ($id) {
-    //This will find (or fail) a record with the id equal to our id parameter.
-    //$task = DB::table('tasks')->find($id);
-    //$task = App\Task::find($id);
-    $task = Task::find($id);
-   return view('tasks.task', compact('task'));
-});
+//Controller base pipelined request (with a wildcard {})
+Route::get('/tasks/{task}', "TasksController@show");
