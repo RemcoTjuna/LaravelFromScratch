@@ -11,12 +11,16 @@
 |
 */
 
+use App\Task;
+
 Route::get('/tasks', function () {
 
     //Will fetch all data from the 'tasks' table.
-    $tasks = DB::table('tasks')->latest()->get();
-
+    //$tasks = DB::table('tasks')->latest()->get();
+    //$tasks = App\Task::all();
+    $tasks = Task::all();
     return view('tasks.index', compact('tasks'));
+
     /*
     //The Three Dimensional Array will support variable pipelining to the blade file.
     return view('welcome',[
@@ -40,6 +44,8 @@ Route::get('/tasks', function () {
 //Wildcard {}
 Route::get('/tasks/{task}', function ($id) {
     //This will find (or fail) a record with the id equal to our id parameter.
-   $task = DB::table('tasks')->find($id);
+    //$task = DB::table('tasks')->find($id);
+    //$task = App\Task::find($id);
+    $task = Task::find($id);
    return view('tasks.task', compact('task'));
 });
