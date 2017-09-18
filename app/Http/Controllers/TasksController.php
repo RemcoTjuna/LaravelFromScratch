@@ -12,8 +12,9 @@ class TasksController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
-    public function show($id){
-        $task = Task::find($id);
+    //The (Task $task) parameter is also known as model binding. It will pass the wildcard to the ::find method within the model.
+    public function show(Task $task){
+        //$task = Task::find($id);
         return view('tasks.task', compact('task'));
     }
 }
