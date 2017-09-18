@@ -12,4 +12,8 @@ class PostModel extends Eloquent
     //Fields that are not allowed to get filled by a input (form, etc)
     protected $guarded = [];
 
+    //Will fetch all models with a one to many relationship
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }
