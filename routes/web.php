@@ -11,8 +11,12 @@
 |
 */
 
-//Controller base pipelined request.
+//Controller based pipeline request.
 Route::get('/tasks', "TasksController@index");
 
-//Controller base pipelined request (with a wildcard {})
+//Controller based pipeline request (with a wildcard {})
 Route::get('/tasks/{task}', "TasksController@show");
+
+//Controller based pipeline request
+Route::get('/posts', "PostsController@index");
+Route::get('/posts/{id}', "PostsController@show");
