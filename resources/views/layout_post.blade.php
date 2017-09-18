@@ -21,7 +21,6 @@
 @include('partials.posts.nav')
 
 <div class="container">
-
     @yield('content')
 </div>
 @include('partials.posts.footer')
