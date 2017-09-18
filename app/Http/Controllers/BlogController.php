@@ -37,16 +37,27 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         $post = new Post;
 
-        //This will assign the values to the post;
-        $post->title($request['title']);
-        $post->body($request['body']);
+        //This will assign the values to the post.
+        $post->title = $request['title'];
+        $post->body = $request['body'];
+        $post->blog_id = 0;
+        $post->user_id = 0;
 
-        //This will save the post;
+        //This will save the post to the database.
         $post->save();
+        */
 
-        return redirect('/');
+        Post::create([
+            'title' => $request['title'],
+            'body' => $request['body'],
+            'user_id' => 0,
+            'blog_id' => 0
+        ]);
+
+        return redirect('/blogs');
     }
 
     /**
