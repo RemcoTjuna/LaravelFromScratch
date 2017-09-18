@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
+use App\Blog;
 
-class PostsController extends Controller
+class BlogController extends Controller
 {
     public function index(){
-        return view('posts.index');
+        return view('blog.index');
     }
 
     public function show(){
-        return view('posts.show');
+        return view('blog.show');
     }
 }
