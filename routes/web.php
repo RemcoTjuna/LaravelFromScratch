@@ -11,6 +11,15 @@
 |
 */
 
+//This is a service container
+//This will allow is to resolve this function/class everywhere on the project
+App::bind('App\Billing\Stripe', function () {
+   return new \App\Billing\Stripe(config('services.stripe.secret'));
+});
+
+//By calling #make you will be able to resolve the service container
+$stripe = App::make('App\Billing\Stripe');
+
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
 Route::get('/blog/{blog}', "BlogController@show");
