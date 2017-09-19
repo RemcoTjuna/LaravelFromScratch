@@ -5,7 +5,6 @@
 
             @if(auth()->check())
                 <div class="nav-link ml-auto">{{ auth()->user()->name }}</div>
-                <a class="nav-link" href="/logout">Logout</a>
             @endif
 
         </nav>

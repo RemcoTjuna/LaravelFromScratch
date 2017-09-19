@@ -14,7 +14,6 @@
 //By calling #make you will be able to resolve the service container
 //This will also make a new instance of this class for you!
 $stripe = App::make('App\Billing\Stripe');
-var_dump($stripe);
 
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
