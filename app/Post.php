@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\PostModel;
+use App\PostBase;
 
-class Post extends PostModel
+class Post extends PostBase
 {
 
 }
