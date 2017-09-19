@@ -6,11 +6,10 @@
         <div class="row">
 
             <div class="col-sm-8 blog-main">
-
                 @foreach($blogs as $blog)
                     <div class="blog-post">
                         <h2 class="blog-post-title"><a href="/blog/{{$blog->id}}">{{$blog->title}}</a></h2>
-                        <p class="blog-post-meta">{{$blog->created_at->toFormattedDateString()}}</p>
+                        <p class="blog-post-meta">{{$blog->created_at->toFormattedDateString()}}@if(count($blog->posts)) || {{count($blog->posts)}} Posts @endif</p>
 
                         <p>{{$blog->content}}</p>
                     </div><!-- /.blog-post -->

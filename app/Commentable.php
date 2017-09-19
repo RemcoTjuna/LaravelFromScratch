@@ -12,6 +12,6 @@ namespace App;
 interface Commentable
 {
 
-    function addComment($content);
+    function addComment($content, $user_id);
 
 }

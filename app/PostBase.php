@@ -33,8 +33,8 @@ class PostBase extends BaseModel implements Commentable
         return $object->attributesToArray();
     }
 
-    public function addComment($content){
-        $this->comments()->create(compact('content'));
+    public function addComment($content, $user_id){
+        $this->comments()->create(compact('content', 'user_id'));
     }
 
     public function user(){

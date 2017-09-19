@@ -34,7 +34,7 @@ class BlogBase extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function addPost($title, $content){
-        $this->posts()->create(compact('title', 'content'));
+    public function addPost($title, $content, $user_id){
+        $this->posts()->create(compact('title', 'content', 'user_id'));
     }
 }

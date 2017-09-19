@@ -28,7 +28,7 @@ class CommentsController extends Controller
             'content' => 'required',
         ]);
 
-        $post->addComment($request['content']);
+        $post->addComment($request['content'], auth()->id());
 
         return back();
     }
