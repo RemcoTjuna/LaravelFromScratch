@@ -8,14 +8,9 @@ use App\Blog;
 class BlogBase extends BaseModel
 {
 
-    private $standardFillable = ['title', 'content'];
-    private $standardGuarded = [];
-    private $standardHidden = [];
-
-    public function __construct()
-    {
-        parent::__construct('blogs', $this->standardGuarded, $this->standardHidden, $this->standardFillable);
-    }
+    protected $fillable = ['title', 'content'];
+    protected $guarded = [];
+    protected $hidden = [];
 
     /**
      * Will fetch all post with the relation to a post with this id.

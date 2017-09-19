@@ -8,27 +8,15 @@ use App\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $posts = Blog::orderBy('created_at', 'desc')->get();
-
-        return view('blog.index', compact('blogs'));
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Blog $blog)
     {
-        //TODO: Create a view for this
-        return view('posts.create');
+        return view('posts.create', compact('blog'));
     }
 
     /**
@@ -46,14 +34,15 @@ class PostController extends Controller
             'blog_id' => 'required|integer'
         ]);
 
-        $post = Post::create([
+        $post = new Post();
+        $post = $post->create([
             'title' => $request['title'],
             'content' => $request['content'],
             'user_id' => 0,
             'blog_id' => $request['blog_id']
         ]);
 
-        return redirect('/blogs/' . $request['blog_id'] . 'posts/' . $post->id);
+        return redirect('/blog/' . $request['blog_id'] . '/posts/' . $post->id);
     }
 
     /**

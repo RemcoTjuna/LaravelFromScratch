@@ -6,14 +6,10 @@ use App\BaseModel;
 
 class PostBase extends BaseModel implements Commentable
 {
-    private $standardFillable = ['title', 'body', 'blog_id', 'user_id'];
-    private $standardGuarded = [];
-    private $standardHidden = [];
+    protected $fillable = ['title', 'content', 'blog_id', 'user_id'];
+    protected $guarded = [];
+    protected $hidden = [];
 
-    public function __construct()
-    {
-        parent::__construct('posts', $this->standardGuarded, $this->standardHidden, $this->standardFillable);
-    }
     /**
      * Will fetch all comments with the relation to a post with this id.
      * This will also be handled by Eloquent.

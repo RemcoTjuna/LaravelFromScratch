@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Blog;
 use App\Comment;
 
 class CommentsController extends Controller
@@ -15,7 +16,7 @@ class CommentsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request, Blog $blog, Post $post)
     {
 
         $this->validate($request, [
