@@ -36,4 +36,8 @@ class PostBase extends BaseModel implements Commentable
     public function addComment($content){
         $this->comments()->create(compact('content'));
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -8,7 +8,7 @@ use App\Blog;
 class BlogBase extends BaseModel
 {
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'user_id'];
     protected $guarded = [];
     protected $hidden = [];
 
@@ -28,6 +28,10 @@ class BlogBase extends BaseModel
             return [];
         }
         return $object->attributesToArray();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function addPost($title, $content){
