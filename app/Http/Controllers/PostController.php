@@ -2,31 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 use App\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-
-        return view('blog.index', compact('posts'));
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Blog $blog)
     {
-        //
+        return view('posts.create', compact('blog'));
     }
 
     /**
@@ -39,18 +29,20 @@ class PostController extends Controller
     {
 
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'required|max:60|string',
+            'content' => 'required',
+            'blog_id' => 'required|integer'
         ]);
 
-        Post::create([
+        $post = new Post();
+        $post = $post->create([
             'title' => $request['title'],
-            'body' => $request['body'],
+            'content' => $request['content'],
             'user_id' => 0,
-            'blog_id' => 0
+            'blog_id' => $request['blog_id']
         ]);
 
-        return redirect('/blogs');
+        return redirect('/blog/' . $request['blog_id'] . '/posts/' . $post->id);
     }
 
     /**
@@ -59,8 +51,11 @@ class PostController extends Controller
      * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Blog $blog, Post $post)
     {
+        if(!$post->blog_id == $blog->id){
+            return abort(404);
+        }
         return view('posts.show', compact('post'));
     }
 

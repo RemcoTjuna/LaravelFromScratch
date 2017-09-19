@@ -5,16 +5,9 @@ namespace App;
 class CommentBase extends BaseModel
 {
 
-    private $standardFillable = ['post_id', 'content'];
-    private $standardGuarded = [];
-    private $standardHidden = [];
-
-
-    public function __construct(array $fillable, array $guarded, array $hidden)
-    {
-        parent::__construct('comments', array_merge($this->standardGuarded, $guarded),
-            array_merge($this->standardHidden, $hidden), array_merge($this->standardFillable, $fillable));
-    }
+    protected $fillable = ['post_id', 'content'];
+    protected $guarded = [];
+    protected $hidden = [];
 
     //Will fetch all models with a one to many relationship
     /**

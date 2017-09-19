@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Post;
@@ -16,9 +17,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'descending_ordder')->get();
+        $blogs = Blog::orderBy('created_at', 'descending_order')->get();
 
-        return view('blog.index', compact('posts'));
+        return view('blog.index', compact('blogs'));
     }
 
     /**
@@ -39,7 +40,24 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'blog_content' => 'required',
+            'blog_title' => 'required|max:60'
+        ]);
+
+        $blog = new Blog();
+        $blog = $blog->create([
+            'content' => $request['blog_content'],
+            'title' => $request['blog_title']
+        ]);
+
+        if($request['post_title'] && $request['post_content']) {
+            $blog->addPost($request['post_title'], $request['post_content']);
+        }
+
+        return redirect('/blog/' . $blog->id);
+
     }
 
     /**
@@ -48,9 +66,9 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Blog $blog)
     {
-        return view('blog.show');
+        return view('blog.show', compact('blog'));
     }
 
     /**

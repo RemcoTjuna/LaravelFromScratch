@@ -4,20 +4,13 @@ namespace App;
 
 use App\BaseModel;
 use App\Blog;
-use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class BlogBase extends BaseModel
 {
 
-    private $standardFillable = ['title', 'content'];
-    private $standardGuarded = [];
-    private $standardHidden = [];
-
-    public function __construct(array $fillable, array $guarded, array $hidden)
-    {
-        parent::__construct('blogs', array_merge($this->standardGuarded, $guarded),
-            array_merge($this->standardHidden, $hidden), array_merge($this->standardFillable, $fillable));
-    }
+    protected $fillable = ['title', 'content'];
+    protected $guarded = [];
+    protected $hidden = [];
 
     /**
      * Will fetch all post with the relation to a post with this id.
@@ -28,12 +21,16 @@ class BlogBase extends BaseModel
         return $this->hasMany(Post::class);
     }
 
-    function getData($id)
+    public function getData($id)
     {
         $object = Blog::find($id);
         if(!$object){
             return [];
         }
         return $object->attributesToArray();
+    }
+
+    public function addPost($title, $content){
+        $this->posts()->create(compact('title', 'content'));
     }
 }

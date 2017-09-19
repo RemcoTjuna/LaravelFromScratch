@@ -4,30 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Blog;
 use App\Comment;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,19 +16,14 @@ class CommentsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request, Blog $blog, Post $post)
     {
 
         $this->validate($request, [
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
-        Comment::create([
-            'content' => $request['content'],
-            'post_id' => $post->id
-        ]);
-
-        //Ended at: -3:30
+        $post->addComment($request['content']);
 
         return back();
     }
