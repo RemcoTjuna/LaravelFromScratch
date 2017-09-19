@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Blog;
+use App\Http\Requests\ExampleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Post;
@@ -20,7 +21,7 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(ExampleRequest $request)
     {
 
         $blogs = Blog::latest()
