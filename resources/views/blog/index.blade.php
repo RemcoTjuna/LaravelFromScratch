@@ -7,8 +7,8 @@
 
             <div class="col-sm-8 blog-main">
 
-                @foreach($posts as $post)
-                    @include('posts.post')
+                @foreach($blogs as $blog)
+                    @include('blogs.show')
                 @endforeach
 
                 <nav class="blog-pagination">

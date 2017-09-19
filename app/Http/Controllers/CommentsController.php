@@ -9,26 +9,6 @@ use App\Comment;
 class CommentsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,15 +19,10 @@ class CommentsController extends Controller
     {
 
         $this->validate($request, [
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
-        Comment::create([
-            'content' => $request['content'],
-            'post_id' => $post->id
-        ]);
-
-        //Ended at: -3:30
+        $post->addComment($request['content']);
 
         return back();
     }

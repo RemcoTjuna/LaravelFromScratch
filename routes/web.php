@@ -13,7 +13,15 @@
 
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
-Route::post('/blogs', "PostController@store");
+Route::get('/blogs/{blog}', "BlogController@show");
 Route::get('/blogs/create', "BlogController@create");
-Route::get('/blogs/posts/{post}', "PostController@show");
+Route::post('/blogs', "BlogController@store");
+
+//Post Routes
+Route::get('/blogs/{blog}/posts', "PostController@index");
+Route::get('/blogs/{blog}/posts/{post}', "PostController@show");
+Route::get('/blogs/{blog}/posts/{post}/create', "PostController@create");
+Route::post('/blogs/{blog}/posts', "PostController@store");
+
+//Comment Routes
 Route::post('/blogs/posts/{post}/comments', "CommentsController@store");

@@ -34,9 +34,9 @@ abstract class BaseModel extends Eloquent
      */
     public function __construct($table, array $guarded, array $hidden, array $fillable)
     {
-        $this->guarded = $guarded;
-        $this->hidden = $hidden;
-        $this->fillable = $fillable;
+        $this->guarded = array_merge($this->guarded, $guarded);
+        $this->hidden = array_merge($this->hidden, $hidden);
+        $this->fillable = array_merge($this->fillable, $fillable);
         $this->table = $table;
     }
 

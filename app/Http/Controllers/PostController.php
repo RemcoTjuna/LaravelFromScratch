@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -14,9 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Blog::orderBy('created_at', 'desc')->get();
 
-        return view('blog.index', compact('posts'));
+        return view('blog.index', compact('blogs'));
     }
 
     /**
@@ -26,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        //TODO: Create a view for this
+        return view('posts.create');
     }
 
     /**
@@ -39,18 +41,19 @@ class PostController extends Controller
     {
 
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'required|max:60|string',
+            'content' => 'required',
+            'blog_id' => 'required|integer'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request['title'],
-            'body' => $request['body'],
+            'content' => $request['content'],
             'user_id' => 0,
-            'blog_id' => 0
+            'blog_id' => $request['blog_id']
         ]);
 
-        return redirect('/blogs');
+        return redirect('/blogs/' . $request['blog_id'] . 'posts/' . $post->id);
     }
 
     /**
@@ -59,8 +62,11 @@ class PostController extends Controller
      * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Blog $blog, Post $post)
     {
+        if(!$post->blog_id == $blog->id){
+            return abort(404);
+        }
         return view('posts.show', compact('post'));
     }
 

@@ -10,10 +10,10 @@ class CommentBase extends BaseModel
     private $standardHidden = [];
 
 
-    public function __construct(array $fillable, array $guarded, array $hidden)
+    public function __construct()
     {
-        parent::__construct('comments', array_merge($this->standardGuarded, $guarded),
-            array_merge($this->standardHidden, $hidden), array_merge($this->standardFillable, $fillable));
+        parent::__construct('comments', $this->standardGuarded, $this->standardHidden, $this->standardFillable);
+
     }
 
     //Will fetch all models with a one to many relationship
@@ -25,7 +25,7 @@ class CommentBase extends BaseModel
         return $this->belongsTo(Post::class);
     }
 
-    function getData($id)
+    public function getData($id)
     {
         $object = Comment::find($id);
         if(!$object){

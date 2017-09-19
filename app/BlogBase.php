@@ -4,7 +4,6 @@ namespace App;
 
 use App\BaseModel;
 use App\Blog;
-use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class BlogBase extends BaseModel
 {
@@ -13,10 +12,9 @@ class BlogBase extends BaseModel
     private $standardGuarded = [];
     private $standardHidden = [];
 
-    public function __construct(array $fillable, array $guarded, array $hidden)
+    public function __construct()
     {
-        parent::__construct('blogs', array_merge($this->standardGuarded, $guarded),
-            array_merge($this->standardHidden, $hidden), array_merge($this->standardFillable, $fillable));
+        parent::__construct('blogs', $this->standardGuarded, $this->standardHidden, $this->standardFillable);
     }
 
     /**
@@ -28,12 +26,16 @@ class BlogBase extends BaseModel
         return $this->hasMany(Post::class);
     }
 
-    function getData($id)
+    public function getData($id)
     {
         $object = Blog::find($id);
         if(!$object){
             return [];
         }
         return $object->attributesToArray();
+    }
+
+    public function addPost($title, $content){
+        $this->posts()->create(compact('title', 'content'));
     }
 }
