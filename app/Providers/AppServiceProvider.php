@@ -13,7 +13,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /*
+         * This will work as well, now we can make a specific view composer class!
+         * //view()->composer('layouts.sidebar'), ??::class)
+         */
+        view()->composer('layouts.sidebar', function($view) {
+            $view->with('archives', \App\Post::archives());
+        });
     }
 
     /**
