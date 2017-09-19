@@ -27,12 +27,6 @@ class BlogController extends Controller
             ->filter([$request['month'], $request['year']])
             ->get();
 
-        $archives = Blog::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
-            ->groupBy('year', 'month')
-            ->orderByRaw('min(created_at) desc')
-            ->get()
-            ->toArray();
-
         return view('blog.index', compact('blogs', 'archives'));
     }
 
