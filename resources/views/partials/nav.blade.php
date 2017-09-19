@@ -2,6 +2,12 @@
     <div class="container">
         <nav class="nav">
             <a class="nav-link active" href="/blogs">Home</a>
+
+            @if(auth()->check())
+                <div class="nav-link ml-auto">{{ auth()->user()->name }}</div>
+                <a class="nav-link" href="/logout">Logout</a>
+            @endif
+
         </nav>
     </div>
 </div>

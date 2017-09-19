@@ -5,7 +5,7 @@ namespace App;
 class CommentBase extends BaseModel
 {
 
-    protected $fillable = ['post_id', 'content'];
+    protected $fillable = ['post_id', 'content', 'user_id'];
     protected $guarded = [];
     protected $hidden = [];
 
@@ -25,5 +25,9 @@ class CommentBase extends BaseModel
             return [];
         }
         return $object->attributesToArray();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

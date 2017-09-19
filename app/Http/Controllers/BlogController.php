@@ -10,16 +10,30 @@ use App\Post;
 class BlogController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::orderBy('created_at', 'descending_order')->get();
 
-        return view('blog.index', compact('blogs'));
+        $blogs = Blog::latest()
+            ->filter([$request['month'], $request['year']])
+            ->get();
+
+        $archives = Blog::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+            ->groupBy('year', 'month')
+            ->orderByRaw('min(created_at) desc')
+            ->get()
+            ->toArray();
+
+        return view('blog.index', compact('blogs', 'archives'));
     }
 
     /**
@@ -49,11 +63,12 @@ class BlogController extends Controller
         $blog = new Blog();
         $blog = $blog->create([
             'content' => $request['blog_content'],
-            'title' => $request['blog_title']
+            'title' => $request['blog_title'],
+            'user_id' => auth()->id()
         ]);
 
         if($request['post_title'] && $request['post_content']) {
-            $blog->addPost($request['post_title'], $request['post_content']);
+            $blog->addPost($request['post_title'], $request['post_content'], auth()->id());
         }
 
         return redirect('/blog/' . $blog->id);

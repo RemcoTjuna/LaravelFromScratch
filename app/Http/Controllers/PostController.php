@@ -9,6 +9,11 @@ use App\Post;
 class PostController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +43,7 @@ class PostController extends Controller
         $post = $post->create([
             'title' => $request['title'],
             'content' => $request['content'],
-            'user_id' => 0,
+            'user_id' => auth()->id(),
             'blog_id' => $request['blog_id']
         ]);
 

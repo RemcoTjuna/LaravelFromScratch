@@ -9,6 +9,11 @@ use App\Comment;
 
 class CommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -23,7 +28,7 @@ class CommentsController extends Controller
             'content' => 'required',
         ]);
 
-        $post->addComment($request['content']);
+        $post->addComment($request['content'], auth()->id());
 
         return back();
     }

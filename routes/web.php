@@ -24,3 +24,7 @@ Route::post('/blog/{blog}/posts', "PostController@store");
 
 //Comment Routes
 Route::post('/blog/{blog}/posts/{post}/comments', "CommentsController@store");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
