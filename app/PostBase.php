@@ -37,7 +37,16 @@ class PostBase extends BaseModel implements Commentable
         $this->comments()->create(compact('content', 'user_id'));
     }
 
+    public function addTag($name){
+        $tag = $this->tags()->create(compact('name'));
+        $this->tags()->attach($tag);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
     }
 }

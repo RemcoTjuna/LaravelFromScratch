@@ -9,8 +9,12 @@
 
                 @foreach($blog->posts as $post)
                     <div class="blog-post">
+
                         <h2 class="blog-post-title"><a href="/blog/{{$blog->id}}/posts/{{$post->id}}">{{$post->title}}</a></h2>
-                        <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}}@if(count($post->comments)) >> {{count($post->comments)}} Comments @endif</p>
+                        <p class="blog-post-meta">@if(count($post->tags))
+                                @foreach($post->tags as $tag) {{$tag->name}} @endforeach <br/> @endif
+                            {{$post->created_at->toFormattedDateString()}}
+                            @if(count($post->comments)) >> {{count($post->comments)}} Comments @endif</p>
 
                         <p>{{$post->content}}</p>
                         <hr/>

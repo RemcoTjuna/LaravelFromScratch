@@ -32,3 +32,4 @@ Route::post('/blog/{blog}/posts/{post}/comments', "CommentsController@store");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/blog/{blog}/posts/tags/{tag}', 'TagController@index');
