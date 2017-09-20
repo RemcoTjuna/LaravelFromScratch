@@ -11,6 +11,10 @@
 |
 */
 
+//By calling #make you will be able to resolve the service container
+//This will also make a new instance of this class for you!
+$stripe = App::make('App\Billing\Stripe');
+
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
 Route::get('/blog/{blog}', "BlogController@show");
@@ -28,3 +32,4 @@ Route::post('/blog/{blog}/posts/{post}/comments', "CommentsController@store");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/blog/{blog}/posts/tags/{tag}', 'TagController@index');
