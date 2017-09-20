@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Blog;
+use App\Http\Requests\ExampleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Post;
@@ -9,14 +11,24 @@ use App\Post;
 class BlogController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ExampleRequest $request)
     {
-        return view('blog.index');
+
+        $blogs = Blog::latest()
+            ->filter([$request['month'], $request['year']])
+            ->get();
+
+        return view('blog.index', compact('blogs', 'archives'));
     }
 
     /**
@@ -37,16 +49,25 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post;
 
-        //This will assign the values to the post;
-        $post->title($request['title']);
-        $post->body($request['body']);
+        $this->validate($request, [
+            'blog_content' => 'required',
+            'blog_title' => 'required|max:60'
+        ]);
 
-        //This will save the post;
-        $post->save();
+        $blog = new Blog();
+        $blog = $blog->create([
+            'content' => $request['blog_content'],
+            'title' => $request['blog_title'],
+            'user_id' => auth()->id()
+        ]);
 
-        return redirect('/');
+        if($request['post_title'] && $request['post_content']) {
+            $blog->addPost($request['post_title'], $request['post_content'], auth()->id());
+        }
+
+        return redirect('/blog/' . $blog->id);
+
     }
 
     /**
@@ -55,9 +76,9 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Blog $blog)
     {
-        return view('blog.show');
+        return view('blog.show', compact('blog'));
     }
 
     /**

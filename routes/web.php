@@ -11,18 +11,25 @@
 |
 */
 
-//Controller based pipeline request.
-Route::get('/tasks', "TasksController@index");
-
-//Controller based pipeline request (with a wildcard {})
-Route::get('/tasks/{task}', "TasksController@show");
-
-//Post Route
-Route::get('/posts', "PostsController@index");
-Route::get('/posts/{id}', "PostsController@show");
+//By calling #make you will be able to resolve the service container
+//This will also make a new instance of this class for you!
+$stripe = App::make('App\Billing\Stripe');
 
 //Blog Routes
 Route::get('/blogs', "BlogController@index");
-Route::post('/blogs', "BlogController@store");
+Route::get('/blog/{blog}', "BlogController@show");
 Route::get('/blogs/create', "BlogController@create");
-Route::get('/blogs/post/{post}', "BlogController@show");
+Route::post('/blogs', "BlogController@store");
+
+//Post Routes
+Route::get('/blog/{blog}/posts/{post}', "PostController@show");
+Route::get('/blog/{blog}/newpost', "PostController@create");
+Route::post('/blog/{blog}/posts', "PostController@store");
+
+//Comment Routes
+Route::post('/blog/{blog}/posts/{post}/comments', "CommentsController@store");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/blog/{blog}/posts/tags/{tag}', 'TagController@index');

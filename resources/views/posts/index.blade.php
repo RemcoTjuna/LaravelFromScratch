@@ -1,62 +1,33 @@
-@extends('layout')
+@extends('layout_post')
 
 @section('content')
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Album example</h1>
-            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-            <p>
-                <a href="#" class="btn btn-primary">Main call to action</a>
-                <a href="#" class="btn btn-secondary">Secondary action</a>
-            </p>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-8 blog-main">
+
+                @if(count($posts))
+                    @foreach($posts as $post)
+                        <div class="blog-post">
+                            <h2 class="blog-post-title">{{$post->title}}</h2>
+                            <p class="blog-post-meta">@if(count($post->tags))
+                                    @foreach($post->tags as $tag) {{$tag->name}} @endforeach <br/> @endif
+                                {{$post->created_at->toFormattedDateString()}}
+                                @if(count($post->comments)) >> {{count($post->comments)}} Comments @endif</p>
+
+                            <p>{{$post->content}}</p>
+
+                            <hr/>
+
+                        </div><!-- /.blog-post -->
+                    @endforeach
+                @else
+                    <div class="blog-post">
+                        <h2 class="blog-post-title">Er zijn geen posts gevonden.</h2>
+                    </div>
+                @endif
+            </div><!-- /.blog-main -->
         </div>
-    </section>
-
-    <div class="album text-muted">
-        <div class="container">
-
-            <div class="row">
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card">
-                    <img data-src="holder.js/100px280/thumb" alt="Card image cap">
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
     </div>
 @endsection
